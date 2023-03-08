@@ -1,0 +1,13 @@
+currency:
+  name: "Zupis"
+  number: "%.2f"
+  formatting: "%currency_number% %currency_name%"
+
+database:
+  name: "minecraft"
+  address: "127.0.0.1"
+  port: 3306
+  username: ""
+  password: ""
+
+version: 1
