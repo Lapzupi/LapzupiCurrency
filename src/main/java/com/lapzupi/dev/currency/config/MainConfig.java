@@ -28,7 +28,7 @@ public class MainConfig extends YamlConfigurateFile<LapzupiCurrency> {
     
     @Override
     protected void builderOptions() {
-        // TODO document why this method is empty
+        // nothing yet
     }
     
     @Override

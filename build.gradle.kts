@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("java")
+    id("maven-publish")
     kotlin("jvm") version "1.8.10"
     id("net.minecrell.plugin-yml.bukkit") version "0.5.3"
     id("com.github.johnrengelman.shadow") version "8.1.0"
@@ -88,4 +89,16 @@ compileKotlin.kotlinOptions {
 val compileTestKotlin: KotlinCompile by tasks
 compileTestKotlin.kotlinOptions {
     jvmTarget = "17"
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = groupId
+            artifactId = artifactId
+            version = version
+            
+            from(components["java"])
+        }
+    }
 }
