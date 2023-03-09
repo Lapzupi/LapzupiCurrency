@@ -1,6 +1,7 @@
 package com.lapzupi.dev.currency
 
 import co.aikar.commands.PaperCommandManager
+import com.lapzupi.dev.currency.api.CurrencyAPI
 import com.lapzupi.dev.currency.command.CurrencyCommand
 import com.lapzupi.dev.currency.config.MainConfig
 import com.lapzupi.dev.currency.database.Database
@@ -49,5 +50,9 @@ class LapzupiCurrency : JavaPlugin() {
     
     fun getMainConfig(): MainConfig {
         return mainConfig
+    }
+    
+    fun getCurrencyAPI(): CurrencyAPI {
+        return database
     }
 }
