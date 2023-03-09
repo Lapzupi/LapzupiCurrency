@@ -26,8 +26,6 @@ class JoinLeaveListener(plugin: LapzupiCurrency) : Listener {
     fun onJoin(event: PlayerJoinEvent) {
         val user = getUserFromDatabaseIfNotExistsCreate(event.player.uniqueId, event.player.name)
         balanceManager.addUserToCache(user)
-        //Check if the user exists in the database.
-        //If not, create it, and add that user to the cache.
     }
     
     private fun getUserFromDatabaseIfNotExistsCreate(uuid: UUID, name: String): User {

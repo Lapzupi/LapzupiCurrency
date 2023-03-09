@@ -31,6 +31,10 @@ class BalanceManager(private val database: Database) {
         return balanceCache.get(uuid) != null
     }
     
+    fun updateCachedUser(uuid: UUID) {
+        balanceCache.refresh(uuid)
+    }
+    
     fun removeCachedUser(uuid: UUID) {
         balanceCache.invalidate(uuid)
     }

@@ -50,16 +50,19 @@ class Database(mainConfig: MainConfig) : CurrencyAPI {
         }
     }
     
-    private fun takeBalance(uuid: UUID?, amount: Double) {
+    private fun takeBalance(uuid: UUID?, amount: Double): Double {
         val balance = nullOrZero(getBalance(uuid))
         val newBalance = getAmountToRemove(balance, amount)
         setBalance(uuid, newBalance)
+        return newBalance
     }
     
-    private fun giveBalance(uuid: UUID?, amount: Double) {
+    private fun giveBalance(uuid: UUID?, amount: Double): Double {
         val amountToGive = sanitizeBalance(amount)
         val balance = nullOrZero(getBalance(uuid))
-        setBalance(uuid, balance + amountToGive)
+        val newBalance = balance + amountToGive
+        setBalance(uuid, newBalance)
+        return newBalance
     }
     
     private fun getAmountToRemove(oldBalance: Double, amount: Double): Double {
@@ -184,22 +187,37 @@ class Database(mainConfig: MainConfig) : CurrencyAPI {
         logTransaction(uuid, amount, TransactionType.SET, plugin, reason)
     }
     
-    override fun giveBalance(uuid: UUID?, amount: Double, plugin: String?, reason: String?) {
-        giveBalance(uuid, amount)
+    override fun giveBalance(uuid: UUID?, amount: Double, plugin: String?, reason: String?): Double {
+        val newBalance = giveBalance(uuid, amount)
         logTransaction(uuid, amount, TransactionType.GIVE, plugin, reason)
+        return newBalance
     }
     
-    override fun takeBalance(uuid: UUID?, amount: Double, plugin: String?, reason: String?) {
-        takeBalance(uuid, amount)
+    override fun takeBalance(uuid: UUID?, amount: Double, plugin: String?, reason: String?): Double {
+        val newBalance = takeBalance(uuid, amount)
         logTransaction(uuid, amount, TransactionType.TAKE, plugin, reason)
+        return newBalance
     }
     
     private fun logStatementError(e: SQLException) {
         logger.error("Could not execute statement", e)
     }
     
-    fun createNewUser(uuid: UUID?, username: String?): User {
+    fun createNewUser(uuid: UUID, username: String): User {
         logTransaction(uuid, 0.0, TransactionType.SET, LapzupiCurrency::class.java.name, "New user created.")
-        return User(uuid!!, username!!, 0.0)
+        executeStatement {connection: Connection ->
+            try {
+                connection.prepareStatement("INSERT INTO `currency_users` (uuid, username, balance) " +
+                    "VALUES (?,?,?)").use { statement ->
+                    statement.setString(1, uuid.toString())
+                    statement.setString(2, username)
+                    statement.setDouble(3, 0.0)
+                    statement.executeUpdate()
+                }
+            } catch (e: SQLException) {
+                logStatementError(e)
+            }
+        }
+        return User(uuid, username, 0.0)
     }
 }

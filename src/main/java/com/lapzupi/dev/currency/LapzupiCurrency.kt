@@ -1,9 +1,11 @@
 package com.lapzupi.dev.currency
 
+import co.aikar.commands.CommandCompletions
 import co.aikar.commands.PaperCommandManager
 import com.lapzupi.dev.currency.api.CurrencyAPI
 import com.lapzupi.dev.currency.command.CurrencyCommand
 import com.lapzupi.dev.currency.config.MainConfig
+import com.lapzupi.dev.currency.config.ReasonsConfig
 import com.lapzupi.dev.currency.database.Database
 import com.lapzupi.dev.currency.listeners.JoinLeaveListener
 import com.lapzupi.dev.currency.placeholder.CurrencyPlaceholderExpansion
@@ -14,9 +16,11 @@ class LapzupiCurrency : JavaPlugin() {
     private lateinit var balanceManager: BalanceManager
     private lateinit var database: Database
     private lateinit var mainConfig: MainConfig
+    private lateinit var reasonsConfig: ReasonsConfig
     
     override fun onEnable() {
         mainConfig = MainConfig(this)
+        reasonsConfig = ReasonsConfig(this)
         database = Database(mainConfig)
         balanceManager = BalanceManager(database)
         
@@ -28,6 +32,7 @@ class LapzupiCurrency : JavaPlugin() {
         
         val commandManager = PaperCommandManager(this)
         commandManager.enableUnstableAPI("brigadier")
+        commandManager.commandCompletions.registerCompletion("reasons") { reasonsConfig.reasonsKeys }
         commandManager.registerCommand(CurrencyCommand(this))
     }
     
@@ -37,6 +42,7 @@ class LapzupiCurrency : JavaPlugin() {
     
     fun onReload() {
         mainConfig.reloadConfig()
+        reasonsConfig.reloadConfig()
         database.onReload()
     }
     
