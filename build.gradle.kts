@@ -75,7 +75,7 @@ tasks {
     shadowJar {
         minimize()
         archiveFileName.set("LapzupiCurrency-${project.version}.jar")
-        archiveClassifier.set("")
+        archiveClassifier.set("shadow")
     
         relocate ("co.aikar.commands", "com.lapzupi.dev.acf")
         relocate ("co.aikar.locales", "com.lapzupi.dev.locales")
