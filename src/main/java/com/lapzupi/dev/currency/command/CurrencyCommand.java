@@ -37,7 +37,7 @@ public class CurrencyCommand extends BaseCommand {
     
     @Subcommand("reload")
     @CommandPermission("lapzupi.currency.reload")
-    public void onReload(final CommandSender sender) {
+    public void onReload(final @NotNull CommandSender sender) {
         this.plugin.onReload();
         sender.sendMessage(Component.text("Reloaded %s v%s".formatted(this.plugin.getName(), this.plugin.getDescription().getVersion())));
     }
@@ -118,12 +118,12 @@ public class CurrencyCommand extends BaseCommand {
     @Subcommand("take")
     @CommandCompletion("@players @nothing @reasons")
     @CommandPermission("lapzupi.currency.take")
-    public void onTake(final CommandSender sender, final @NotNull OfflinePlayer player, final double amount, @Optional @Default("Take command.") String reason, @Optional boolean hidden) {
+    public void onTake(final CommandSender sender, final @NotNull OfflinePlayer player, final double amount, @Optional @Default("Take command.") String reason, @Optional Boolean hidden) {
         if(userNotExists(player.getUniqueId())) {
             sender.sendMessage(Component.text(NO_PROFILE.formatted(player.getName())));
             return;
         }
-        
+        hidden = defaultHidden(hidden);
         var newBalance = plugin.getDatabase().takeBalance(player.getUniqueId(),amount,LapzupiCurrency.class.getName(),reason,hidden);
         plugin.getBalanceManager().updateCachedUser(player.getUniqueId());
         sender.sendMessage(Component.text("Took %.2f from %s. %s now has %.2f".formatted(amount, player.getName(), player.getName(), newBalance)));
@@ -133,12 +133,12 @@ public class CurrencyCommand extends BaseCommand {
     @CommandCompletion("@players @nothing @reasons")
     @CommandPermission("lapzupi.currency.give")
     @Description("Give a player currency. Optionally, include a reason.")
-    public void onGive(final CommandSender sender, final @NotNull OfflinePlayer player, final double amount, @Optional @Default("Give command.") String reason, @Optional boolean hidden) {
+    public void onGive(final CommandSender sender, final @NotNull OfflinePlayer player, final double amount, @Optional @Default("Give command.") String reason, @Optional Boolean hidden) {
         if(userNotExists(player.getUniqueId())) {
             sender.sendMessage(Component.text(NO_PROFILE.formatted(player.getName())));
             return;
         }
-        
+        hidden = defaultHidden(hidden);
         var newBalance = plugin.getDatabase().giveBalance(player.getUniqueId(),amount,LapzupiCurrency.class.getName(),reason,hidden);
         plugin.getBalanceManager().updateCachedUser(player.getUniqueId());
         sender.sendMessage(Component.text("Gave %.2f to %s. %s now has %.2f".formatted(amount, player.getName(), player.getName(), newBalance)));
@@ -148,15 +148,24 @@ public class CurrencyCommand extends BaseCommand {
     @CommandCompletion("@players @nothing @reasons")
     @CommandPermission("lapzupi.currency.set")
     @Description("Set the amount of currency a player has. Optionally, include a reason.")
-    public void onSet(final CommandSender sender, final @NotNull OfflinePlayer player, final double amount, @Optional @Default("Set command.") String reason, @Optional boolean hidden) {
+    public void onSet(final CommandSender sender, final @NotNull OfflinePlayer player, final double amount, @Optional @Default("Set command.") String reason, @Optional Boolean hidden) {
         if(userNotExists(player.getUniqueId())) {
             sender.sendMessage(Component.text(NO_PROFILE.formatted(player.getName())));
             return;
         }
-    
+        
+        hidden = defaultHidden(hidden);
+        
         plugin.getDatabase().setBalance(player.getUniqueId(),amount,LapzupiCurrency.class.getName(),reason,hidden);
         plugin.getBalanceManager().updateCachedUser(player.getUniqueId());
         sender.sendMessage(Component.text("Set %.2f for %s".formatted(amount, player.getName())));
+    }
+    
+    private boolean defaultHidden(Boolean hidden) {
+        if(hidden == null) {
+            return false;
+        }
+        return hidden;
     }
     
     // Checks if user doesn't exist in cache or database
@@ -173,7 +182,7 @@ public class CurrencyCommand extends BaseCommand {
         return null;
     }
     
-    private String getHiddenReason(final CommandSender sender, final Transaction transaction) {
+    private @NotNull String getHiddenReason(final @NotNull CommandSender sender, final Transaction transaction) {
         if(sender.hasPermission("lapzupi.currency.history.hidden")) {
             return transaction.getReason();
         }
@@ -200,7 +209,7 @@ public class CurrencyCommand extends BaseCommand {
     
     
     
-    private Component getTransactionComponentList(final CommandSender sender, final List<Transaction> transactions) {
+    private Component getTransactionComponentList(final CommandSender sender, final @NotNull List<Transaction> transactions) {
         Component component = Component.text("");
         for(Transaction transaction: transactions) {
             component = component.append(getComponentFromTransaction(sender,transaction)).appendNewline();
