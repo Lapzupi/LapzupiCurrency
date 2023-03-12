@@ -6,6 +6,7 @@ import com.lapzupi.dev.currency.LapzupiCurrency;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.ConfigurateException;
+import org.spongepowered.configurate.serialize.TypeSerializerCollection;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,9 +40,10 @@ public class ReasonsConfig extends YamlConfigurateFile<LapzupiCurrency> {
     public String getReason(final String key) {
         return this.reasons.get(key);
     }
+    
     @Override
-    protected void builderOptions() {
-        //nothing for now
+    protected void builderOptions(TypeSerializerCollection.Builder builder) {
+        // Nothing for now
     }
     
     @Override
