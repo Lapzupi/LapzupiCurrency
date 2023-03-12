@@ -13,5 +13,6 @@ CREATE TABLE IF NOT EXISTS currency_transactions(
     plugin VARCHAR(255) NOT NULL,
     `type` ENUM ('TAKE', 'GIVE', 'SET'),
     reason TEXT NOT NULL,
+    hidden BOOL NOT NULL DEFAULT FALSE,
     PRIMARY KEY (friendly_id)
 );

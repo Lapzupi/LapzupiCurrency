@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.lapzupi.dev"
-version = "1.0.0"
+version = "1.1.0"
 
 repositories {
     mavenCentral()
@@ -34,7 +34,7 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.19.3-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.2")
     
-    implementation("com.github.Lapzupi:LapzupiConfig:1.0.2")
+    implementation("com.github.Lapzupi:LapzupiConfig:1.1.0")
     //libraries
     library(kotlin("stdlib-jdk8"))
     library("com.zaxxer:HikariCP:5.0.1")

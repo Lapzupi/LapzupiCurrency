@@ -10,4 +10,16 @@ database:
   username: ""
   password: ""
 
+
+history:
+  give:
+    symbol: "+"
+    color: "#00FF00"
+  take:
+    symbol: "-"
+    color: "#FF0000"
+  set:
+    symbol: "*"
+    color: "#FFC300"
+
 version: 1
