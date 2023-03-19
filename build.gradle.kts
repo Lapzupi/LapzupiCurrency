@@ -35,6 +35,7 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.2")
     
     implementation("com.github.Lapzupi:LapzupiConfig:1.1.0")
+    implementation("com.github.Lapzupi:LapzupiConnection:1.0.0")
     //libraries
     library(kotlin("stdlib-jdk8"))
     library("com.zaxxer:HikariCP:5.0.1")

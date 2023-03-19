@@ -1,15 +1,14 @@
 package com.lapzupi.dev.currency.database
 
 import com.devskiller.friendly_id.FriendlyId
+import com.lapzupi.dev.connection.ConnectionFactory
+import com.lapzupi.dev.connection.MySqlConnectionFactory
 import com.lapzupi.dev.currency.LapzupiCurrency
 import com.lapzupi.dev.currency.api.CurrencyAPI
 import com.lapzupi.dev.currency.config.MainConfig
-import com.lapzupi.dev.currency.database.connection.ConnectionFactory
-import com.lapzupi.dev.currency.database.connection.MySqlConnectionFactory
 import com.lapzupi.dev.currency.transaction.Transaction
 import com.lapzupi.dev.currency.transaction.TransactionType
 import com.lapzupi.dev.currency.user.User
-import net.kyori.adventure.text.Component
 import org.slf4j.LoggerFactory
 import java.sql.Connection
 import java.sql.ResultSet
