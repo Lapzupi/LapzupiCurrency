@@ -6,6 +6,9 @@ plugins {
     kotlin("jvm") version "1.8.10"
 }
 
+group = "com.lapzupi.dev"
+version = "1.1.0"
+
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 }
