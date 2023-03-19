@@ -11,6 +11,7 @@ plugins {
 group = "com.lapzupi.dev"
 version = "1.1.0"
 
+
 repositories {
     mavenCentral()
     maven(
@@ -34,6 +35,7 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.19.3-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.2")
     
+    implementation(project(":api"))
     implementation("com.github.Lapzupi:LapzupiConfig:1.1.0")
     implementation("com.github.Lapzupi:LapzupiConnection:1.0.0")
     //libraries

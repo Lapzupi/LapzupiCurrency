@@ -14,7 +14,6 @@ import org.spongepowered.configurate.serialize.TypeSerializer;
 import org.spongepowered.configurate.serialize.TypeSerializerCollection;
 
 import java.lang.reflect.Type;
-import java.util.function.Consumer;
 
 /**
  * @author sarhatabaot
