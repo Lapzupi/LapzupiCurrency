@@ -9,6 +9,7 @@ import com.lapzupi.dev.currency.database.Database
 import com.lapzupi.dev.currency.listeners.JoinLeaveListener
 import com.lapzupi.dev.currency.placeholder.CurrencyPlaceholderExpansion
 import org.bukkit.Bukkit
+import org.bukkit.plugin.ServicePriority
 import org.bukkit.plugin.java.JavaPlugin
 
 class LapzupiCurrency : JavaPlugin() {
@@ -20,7 +21,9 @@ class LapzupiCurrency : JavaPlugin() {
     override fun onEnable() {
         mainConfig = MainConfig(this)
         reasonsConfig = ReasonsConfig(this)
+        
         database = Database(mainConfig)
+        server.servicesManager.register(CurrencyAPI::class.java,this.database,this,ServicePriority.Normal)
         balanceManager = BalanceManager(database)
         
         getLogger().info(mainConfig.toString())
