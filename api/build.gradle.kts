@@ -1,26 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("java")
-    id("maven-publish")
-    kotlin("jvm") version "1.8.10"
+    id("com.lapzupi.dev.currency.java-conventions")
 }
 
-group = "com.lapzupi.dev"
 version = "1.1.0"
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
+    compileOnly(kotlin("stdlib-jdk8"))
 }
 repositories {
     mavenCentral()
-}
-
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "17"
-}
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "17"
 }

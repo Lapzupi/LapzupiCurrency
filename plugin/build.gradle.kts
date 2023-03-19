@@ -1,14 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("java")
-    id("maven-publish")
-    kotlin("jvm") version "1.8.10"
+    id("com.lapzupi.dev.currency.java-conventions")
     id("net.minecrell.plugin-yml.bukkit") version "0.5.3"
     id("com.github.johnrengelman.shadow") version "8.1.0"
 }
 
-group = "com.lapzupi.dev"
 version = "1.1.0"
 
 
@@ -52,12 +49,6 @@ dependencies {
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
 }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
-}
-
 bukkit {
     name = "LapzupiCurrency"
     main = "com.lapzupi.dev.currency.LapzupiCurrency"
@@ -82,26 +73,5 @@ tasks {
     
         relocate ("co.aikar.commands", "com.lapzupi.dev.acf")
         relocate ("co.aikar.locales", "com.lapzupi.dev.locales")
-    }
-}
-
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "17"
-}
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "17"
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = groupId
-            artifactId = artifactId
-            version = version
-            
-            from(components["java"])
-        }
     }
 }
