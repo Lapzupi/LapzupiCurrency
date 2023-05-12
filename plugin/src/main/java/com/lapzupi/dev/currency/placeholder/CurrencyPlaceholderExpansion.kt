@@ -31,7 +31,7 @@ class CurrencyPlaceholderExpansion(private val plugin: LapzupiCurrency) : Placeh
             return PlaceholderAPI.setPlaceholders(player, plugin.getMainConfig().formatting)
         }
         
-        return null
+        return "WRONG_PLACEHOLDER"
     }
     
     override fun getIdentifier(): String {

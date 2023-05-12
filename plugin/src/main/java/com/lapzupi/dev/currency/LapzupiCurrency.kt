@@ -26,7 +26,7 @@ class LapzupiCurrency : JavaPlugin() {
         server.servicesManager.register(CurrencyAPI::class.java,this.database,this,ServicePriority.Normal)
         balanceManager = BalanceManager(database)
         
-        getLogger().info(mainConfig.toString())
+        logger.info(mainConfig.toString())
         
         CurrencyPlaceholderExpansion(this).register()
         
