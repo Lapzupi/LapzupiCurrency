@@ -25,6 +25,7 @@ import java.util.UUID;
  */
 @CommandAlias("currency")
 public class CurrencyCommand extends BaseCommand {
+    private static final String DISPLAY_HISTORY = "Displaying transaction history for %s page %d";
     private static final String NO_PROFILE = "No profile found for user: %s";
     private final LapzupiCurrency plugin;
     
@@ -68,7 +69,7 @@ public class CurrencyCommand extends BaseCommand {
                 sender.sendMessage(Component.text("You must specify a player when sending from console."));
                 return;
             }
-            sender.sendMessage(Component.text("Displaying transaction history for %s page %d".formatted(target.getName(), page)));
+            sender.sendMessage(Component.text(DISPLAY_HISTORY.formatted(target.getName(), page)));
             sender.sendMessage(getTransactionComponentList(sender, Objects.requireNonNull(plugin.getDatabase().getTransactions(target.getUniqueId(), page))));
         }
         
@@ -78,13 +79,13 @@ public class CurrencyCommand extends BaseCommand {
                 return;
             }
             
-            sender.sendMessage(Component.text("Displaying transaction history for %s page %d".formatted(target.getName(), page)));
+            sender.sendMessage(Component.text(DISPLAY_HISTORY.formatted(target.getName(), page)));
             sender.sendMessage(getTransactionComponentList(sender,Objects.requireNonNull(plugin.getDatabase().getTransactions(target.getUniqueId(), page))));
             return;
         }
         
         final Player senderPlayer = (Player) sender;
-        sender.sendMessage(Component.text("Displaying transaction history for %s page %d".formatted(senderPlayer.getName(), page)));
+        sender.sendMessage(Component.text(DISPLAY_HISTORY.formatted(senderPlayer.getName(), page)));
         sender.sendMessage(getTransactionComponentList(sender,Objects.requireNonNull(plugin.getDatabase().getTransactions(senderPlayer.getUniqueId(), page))));
     }
     
