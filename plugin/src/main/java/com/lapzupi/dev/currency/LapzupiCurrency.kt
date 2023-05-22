@@ -15,6 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin
 class LapzupiCurrency : JavaPlugin() {
     private lateinit var balanceManager: BalanceManager
     private lateinit var database: Database
+    private lateinit var currencyImpl: CurrencyImpl
     private lateinit var mainConfig: MainConfig
     private lateinit var reasonsConfig: ReasonsConfig
     
@@ -23,8 +24,11 @@ class LapzupiCurrency : JavaPlugin() {
         reasonsConfig = ReasonsConfig(this)
         
         database = Database(mainConfig)
-        server.servicesManager.register(CurrencyAPI::class.java,this.database,this,ServicePriority.Normal)
         balanceManager = BalanceManager(database)
+        currencyImpl = CurrencyImpl(database, balanceManager)
+        
+        server.servicesManager.register(CurrencyAPI::class.java, this.currencyImpl, this, ServicePriority.Normal)
+        
         
         logger.info(mainConfig.toString())
         
@@ -61,7 +65,7 @@ class LapzupiCurrency : JavaPlugin() {
     }
     
     fun getCurrencyAPI(): CurrencyAPI {
-        return database
+        return currencyImpl
     }
     
     fun getReasonsConfig(): ReasonsConfig {

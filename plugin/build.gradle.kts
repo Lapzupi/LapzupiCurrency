@@ -6,7 +6,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "8.1.0"
 }
 
-version = "1.2.0"
+version = "1.3.0"
 
 
 repositories {
@@ -55,6 +55,7 @@ bukkit {
     apiVersion = "1.19"
     version = project.version.toString()
     depend = listOf("PlaceholderAPI")
+    authors = listOf("Lapzupi Development Team", "sarhatabaot")
 }
 
 tasks.compileKotlin {

@@ -32,6 +32,10 @@ class User {
         this.balance -= balance
     }
     
+    fun setBalance(balance: Double) {
+        this.balance = balance
+    }
+    
     fun hasBalance(balance: Double): Boolean {
         return this.balance >= balance
     }

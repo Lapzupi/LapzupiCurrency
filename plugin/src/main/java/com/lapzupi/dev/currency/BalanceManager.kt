@@ -24,15 +24,23 @@ class BalanceManager(private val database: Database) {
     }
     
     fun getCachedUser(uuid: UUID): User? {
-        return balanceCache.get(uuid)
+        return balanceCache[uuid]
     }
     
-    fun hasCachedUser(uuid: UUID): Boolean {
-        return balanceCache.get(uuid) != null
+    fun hasCachedUser(uuid: UUID?): Boolean {
+        return balanceCache[uuid] != null
     }
     
-    fun updateCachedUser(uuid: UUID) {
+    fun updateCachedUser(uuid: UUID?) {
+        if(uuid == null)
+            return
         balanceCache.refresh(uuid)
+    }
+    
+    fun updateCachedUser(uuid: UUID?, amount: Double) {
+        if(uuid == null)
+            return
+        balanceCache[uuid].setBalance(amount)
     }
     
     fun removeCachedUser(uuid: UUID) {

@@ -4,7 +4,6 @@ import com.devskiller.friendly_id.FriendlyId
 import com.lapzupi.dev.connection.ConnectionFactory
 import com.lapzupi.dev.connection.MySqlConnectionFactory
 import com.lapzupi.dev.currency.LapzupiCurrency
-import com.lapzupi.dev.currency.api.CurrencyAPI
 import com.lapzupi.dev.currency.config.MainConfig
 import com.lapzupi.dev.currency.transaction.Transaction
 import com.lapzupi.dev.currency.transaction.TransactionType
@@ -22,7 +21,7 @@ import java.util.function.Function
 /**
  * @author sarhatabaot
  */
-class Database(mainConfig: MainConfig) : CurrencyAPI {
+class Database(mainConfig: MainConfig)  {
     private val connectionFactory: ConnectionFactory
     private val mainConfig: MainConfig
     private val logger = LoggerFactory.getLogger(Database::class.java)
@@ -96,7 +95,7 @@ class Database(mainConfig: MainConfig) : CurrencyAPI {
         }
     }
     
-    override fun getBalance(uuid: UUID?): Double? {
+    fun getBalance(uuid: UUID?): Double? {
         val getUserBalance = "SELECT balance FROM `currency_users` WHERE uuid = ?;"
         return getStatement { connection: Connection ->
             try {
@@ -185,18 +184,18 @@ class Database(mainConfig: MainConfig) : CurrencyAPI {
         connectionFactory.shutdown()
     }
     
-    override fun setBalance(uuid: UUID?, amount: Double, plugin: String?, reason: String?, hidden: Boolean) {
+    fun setBalance(uuid: UUID?, amount: Double, plugin: String?, reason: String?, hidden: Boolean) {
         setBalance(uuid, amount)
         logTransaction(uuid, amount, TransactionType.SET, plugin, reason, hidden)
     }
     
-    override fun giveBalance(uuid: UUID?, amount: Double, plugin: String?, reason: String?, hidden: Boolean): Double {
+    fun giveBalance(uuid: UUID?, amount: Double, plugin: String?, reason: String?, hidden: Boolean): Double {
         val newBalance = giveBalance(uuid, amount)
         logTransaction(uuid, amount, TransactionType.GIVE, plugin, reason, hidden)
         return newBalance
     }
     
-    override fun takeBalance(uuid: UUID?, amount: Double, plugin: String?, reason: String?, hidden: Boolean): Double {
+    fun takeBalance(uuid: UUID?, amount: Double, plugin: String?, reason: String?, hidden: Boolean): Double {
         val newBalance = takeBalance(uuid, amount)
         logTransaction(uuid, amount, TransactionType.TAKE, plugin, reason, hidden)
         return newBalance
