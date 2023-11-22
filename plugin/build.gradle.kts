@@ -36,7 +36,7 @@ dependencies {
     implementation("com.github.Lapzupi:LapzupiConfig:1.1.2")
     implementation("com.github.Lapzupi:LapzupiConnection:1.0.3")
     //libraries
-    library(kotlin("stdlib-jdk8"))
+    library("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10")
     library("com.zaxxer:HikariCP:5.1.0")
     library("com.devskiller.friendly-id:friendly-id:1.1.0")
     library("org.spongepowered:configurate-yaml:4.1.2")
