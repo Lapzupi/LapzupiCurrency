@@ -4,7 +4,7 @@ plugins {
     id("com.lapzupi.dev.currency.java-conventions")
 }
 
-version = "1.1.0"
+version = "1.2.0"
 
 dependencies {
     compileOnly(kotlin("stdlib-jdk8"))
