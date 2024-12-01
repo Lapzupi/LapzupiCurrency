@@ -49,7 +49,7 @@ public class MainConfig extends YamlConfigurateFile<LapzupiCurrency> {
             }
     
             @Override
-            public void serialize(@NotNull Type type, @Nullable TransactionTypeConfig obj, @NotNull ConfigurationNode node) throws SerializationException {
+            public void serialize(@NotNull Type type, @Nullable TransactionTypeConfig obj, ConfigurationNode node) throws SerializationException {
                 //nothing for now
             }
         });
