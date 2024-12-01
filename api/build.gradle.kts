@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     id("com.lapzupi.dev.currency.java-conventions")
 }
@@ -7,7 +5,7 @@ plugins {
 version = "1.2.0"
 
 dependencies {
-    compileOnly(kotlin("stdlib-jdk8"))
+    compileOnly(kotlin("stdlib"))
 }
 repositories {
     mavenCentral()

@@ -8,15 +8,8 @@ import java.util.*
  *
  * @author sarhatabaot
  */
-class CurrencyImpl(database: Database, balanceManager: BalanceManager): CurrencyAPI {
-    private val database: Database
-    private val balanceManager: BalanceManager
-    
-    init {
-        this.database = database
-        this.balanceManager = balanceManager
-    }
-    
+class CurrencyImpl(private val database: Database, private val balanceManager: BalanceManager): CurrencyAPI {
+
     override fun setBalance(uuid: UUID?, amount: Double, plugin: String?, reason: String?, hidden: Boolean) {
         database.setBalance(uuid,amount, plugin, reason, hidden)
         balanceManager.updateCachedUser(uuid, amount)

@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -6,21 +7,21 @@ plugins {
     kotlin("jvm")
 }
 
-group = "com.lapzupi.dev"
+group = "com.lapzupi.dev.currency"
 
 val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "17"
+compileKotlin.compilerOptions {
+    jvmTarget.set(JvmTarget.JVM_21)
 }
 val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "17"
+compileTestKotlin.compilerOptions {
+    jvmTarget.set(JvmTarget.JVM_21)
 }
 
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 

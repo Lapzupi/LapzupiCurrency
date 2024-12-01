@@ -42,14 +42,14 @@ public class MainConfig extends YamlConfigurateFile<LapzupiCurrency> {
     protected void builderOptions(TypeSerializerCollection.@NotNull Builder builder) {
         builder.register(TransactionTypeConfig.class, new TypeSerializer<>() {
             @Override
-            public TransactionTypeConfig deserialize(Type type, ConfigurationNode node) throws SerializationException {
+            public TransactionTypeConfig deserialize(@NotNull Type type, @NotNull ConfigurationNode node) throws SerializationException {
                 final String symbol = node.node("symbol").getString();
                 final String color = node.node("color").getString();
                 return new TransactionTypeConfig(symbol, color);
             }
     
             @Override
-            public void serialize(Type type, @Nullable TransactionTypeConfig obj, ConfigurationNode node) throws SerializationException {
+            public void serialize(@NotNull Type type, @Nullable TransactionTypeConfig obj, @NotNull ConfigurationNode node) throws SerializationException {
                 //nothing for now
             }
         });
